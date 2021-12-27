@@ -50,48 +50,48 @@ const injectColors = () => {
 function ColorProperties(element) {
   injectColors();
 
-  const previewColors = useAttribute(element, "preview-colors");
+  const [previewColors] = useAttribute(element, "preview-colors", false);
 
-  if (!previewColors) return;
+  if (previewColors) {
+    const rootList = element.shadowRoot.querySelector("#color-properties");
 
-  const rootList = element.shadowRoot.querySelector("#color-properties");
+    colors.forEach((colorShades) => {
+      const colorLi = document.createElement("li");
 
-  colors.forEach((colorShades) => {
-    const colorLi = document.createElement("li");
+      const colorH4 = document.createElement("h4");
+      const colorOl = document.createElement("ol");
 
-    const colorH4 = document.createElement("h4");
-    const colorOl = document.createElement("ol");
-
-    colorH4.textContent = Object.keys(colorShades[0]).pop()
-      .replace(/(--color|-\d{3})/g, "")
-      .split("-")
-      .join(" ");
-  
-    colorOl.classList.add("color");
+      colorH4.textContent = Object.keys(colorShades[0]).pop()
+        .replace(/(--color|-\d{3})/g, "")
+        .split("-")
+        .join(" ");
     
-    colorShades.forEach((shade) => {
-      const colorName = Object.keys(shade).pop();
-      const weightLi = document.createElement("li");
+      colorOl.classList.add("color");
+      
+      colorShades.forEach((shade) => {
+        const colorName = Object.keys(shade).pop();
+        const weightLi = document.createElement("li");
 
-      weightLi.classList.add("color-weight");
+        weightLi.classList.add("color-weight");
 
-      weightLi.setAttribute(
-        "title",
-        colorName.replace("--color", "").split("-").join(" ")
-      );
+        weightLi.setAttribute(
+          "title",
+          colorName.replace("--color", "").split("-").join(" ")
+        );
 
-      weightLi.style.setProperty(
-        "background-color",
-        `hsl(var(${colorName}))`
-      );
+        weightLi.style.setProperty(
+          "background-color",
+          `hsl(var(${colorName}))`
+        );
 
-      colorOl.appendChild(weightLi);
+        colorOl.appendChild(weightLi);
+      });
+
+      colorLi.appendChild(colorH4);
+      colorLi.appendChild(colorOl);
+      rootList.appendChild(colorLi);
     });
-
-    colorLi.appendChild(colorH4);
-    colorLi.appendChild(colorOl);
-    rootList.appendChild(colorLi);
-  });
+  }
 };
 
 export default {
