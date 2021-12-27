@@ -1,0 +1,18 @@
+#scroll-snap-root {
+  display: grid;
+  grid-template-columns: repeat(2, var(--viewport-width));
+  grid-template-rows: var(--viewport-height);
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+}
+
+#scroll-snap-root > ::slotted(*) {
+  scroll-snap-align: center;
+  overflow-y: auto;
+}
+
+@media screen and (min-width: 48rem) {
+  #scroll-snap-root {
+    grid-template-columns: var(--sidebar-width) 1fr;
+  }
+}
