@@ -1,0 +1,16 @@
+.main-content {
+  padding: 1rem 1.5rem;
+}
+
+@media screen and (min-width: 48rem) {
+  .main-content {
+    --content-padding-x: max(
+      2rem,
+      calc(
+        (var(--viewport-width) - var(--sidebar-width) - var(--content-max-width)) / 2
+      )
+    );
+
+    padding: 1rem var(--content-padding-x) 1rem var(--content-padding-x);
+  }
+}

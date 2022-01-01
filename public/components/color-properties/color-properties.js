@@ -33,7 +33,7 @@ const injectColors = () => {
           (weight, index) => generateColorProperties(
             colorName,
             weight,
-            [baseHue, baseSaturation, baseLightness - 10 * index]
+            [baseHue, baseSaturation, baseLightness - 7 * index]
           )
         ),
       ];
